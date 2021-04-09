@@ -5,7 +5,7 @@
 0407 17:00 安裝完6後 使用laravel官網的指令 快速生成登入註冊系統
 0408 將資料庫設計想好後 完成基礎migrate和seeder model尚未動工
 0409 9:15 push一次備份
-
+0409 16:00 seeder被改到過多未知錯誤 將model push上來後 重新clone
 
 
 

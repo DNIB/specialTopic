@@ -11,6 +11,10 @@ class Item extends Model
 
     public function userinput()
     {
-        return $this->belongsToMany('App\Userinput');
+        return $this->hasMany(
+            Userinput::class,
+            'itemID',
+            'id'
+        );
     }
 }

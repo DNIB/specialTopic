@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         //$Eas = new EatsTableSeeder;
         //$Eas->run();
-        $this->call(UserInputsTable::class);
+        $this->call(UserInputsTableSeeder::class);
         $this->call(ItemsTableSeeder::class);
         
     }

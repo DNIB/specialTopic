@@ -14,8 +14,28 @@ class ItemsTableSeeder extends Seeder
     {
         //
         DB::table('items')->insert([
-            'itemId' => 1,
+            'id' => 1,
             'item' => 'eats',
+        ]);
+        DB::table('items')->insert([
+            'id' => 2,
+            'item' => 'traffic',
+        ]);
+        DB::table('items')->insert([
+            'id' => 3,
+            'item' => 'enterment',
+        ]);
+        DB::table('items')->insert([
+            'id' => 4,
+            'item' => 'test4',
+        ]);
+        DB::table('items')->insert([
+            'id' => 5,
+            'item' => 'test5',
+        ]);
+        DB::table('items')->insert([
+            'id' => 6,
+            'item' => 'test6',
         ]);
     }
 }

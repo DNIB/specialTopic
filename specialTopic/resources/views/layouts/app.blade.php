@@ -26,6 +26,12 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+                <a class="navbar-brand" href="{{ url('/Userinput/create') }}">
+                    {{ '新增資料' }}
+                </a>
+                <a class="navbar-brand" href="{{ url('/Userinput/create') }}">
+                    {{ '資料一覽' }}
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

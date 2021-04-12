@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">登入首頁</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,11 +14,11 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <p>成功登入</p>
                 </div>
             </div>
             <form>
-            <select name="allMoney">
+            <select name="inputMoney", action="url">
                 <option value="default" selected disabled>請選擇項目</option>
                 <optgroup label="收入">
                     <option value="money">薪水</option>
@@ -30,6 +30,8 @@
                     <option value="enterment">娛樂</option>
                     <option value="something">生活用品</option>
                 </optgroup>
+                <input type="number" min="1">
+                <input type="submit" value="Submit">
             </form>
         </div>
     </div>

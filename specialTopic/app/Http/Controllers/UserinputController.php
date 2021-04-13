@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Item;
 use Illuminate\Http\Request;
 use Auth;
 use App\Userinput;
@@ -16,7 +17,13 @@ class UserinputController extends Controller
     public function index()
     {
         //
+        $UserID = Auth::user()->id;
+
+        $userinput = Userinput::where('userID', '=', $UserID)->get();
+
+        $items = Item::All()->keyBy('id')->toArray();
         
+        return view('index', compact('userinput','items'));
     }
 
     /**
@@ -42,18 +49,17 @@ class UserinputController extends Controller
         $userID = Auth::user()->id;
         //
         $validatedData = $request->validate([
-            
+            'itemID' => 'required',
             'money' => 'required',
         ]);
         $storeDataForm = [
             'money' => $request->get('money'),
             'userID' => $userID,
-            'ioID' => '1',
+            'describe' => $request->get('describe'),
             'itemID' => $request->get('itemID'),
         ];
         $show = Userinput::create($storeDataForm);
         
-        //return redirect('/Userinputs')->with('success', 'money is successfully saved');
         return redirect('/Userinput/create')->with('success', 'money is successfully saved');
     }
 
@@ -77,6 +83,8 @@ class UserinputController extends Controller
     public function edit($id)
     {
         //
+        $editData = Userinput::findOrFail($id);
+        return view('edit', compact('editData'));
     }
 
     /**
@@ -89,6 +97,13 @@ class UserinputController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $validatedData = $request->validate([
+            'describe' => 'nullable',
+            'itemID' => 'required',
+            'money' => 'required',
+        ]);
+        Userinput::whereId($id)->update($validatedData);
+        return redirect('/Userinput')->with('success', 'Data is successfully updated');
     }
 
     /**
@@ -100,5 +115,9 @@ class UserinputController extends Controller
     public function destroy($id)
     {
         //
+        $deleteData = Userinput::findOrFail($id);
+        $deleteData->delete();
+        
+        return redirect()->back()->with('success', 'Data is successfully deleted');
     }
 }

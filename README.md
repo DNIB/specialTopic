@@ -7,6 +7,7 @@
 0409 9:15 push一次備份
 0409 16:00 push ##seeder被改到過多未知錯誤 將model push上來後 重新clone
 0412 1530 push 已經可以在新增資料的頁面將資料新增到資料庫 userID, itemID也是正確的, 尚未做出ioID
-
+0413 15:50 push 核心功能大致完成 可以增修刪 顯示各個種類的花費 以及餘額為負時alert
+                取消ioID設計 增加describe欄位
 
 

@@ -29,7 +29,10 @@
                     <label>選項 :</label>
                     <p><input type="radio" name="itemID" value="1"/> 餐費</p>
                     <p><input type="radio" name="itemID" value="2"/> 交通</p>
-                    <p><input type="radio" name="itemID" value="3"/> 其他</p>
+                    <p><input type="radio" name="itemID" value="3"/> 娛樂</p>
+                    <p><input type="radio" name="itemID" value="4"/> 其他支出</p>
+                    <p><input type="radio" name="itemID" value="5"/> 薪水</p>
+                    <p><input type="radio" name="itemID" value="6"/> 其他收入</p>
                 </div>
                 <div class="form-group">
                     <label>金額 :</label>

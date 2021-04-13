@@ -8,7 +8,7 @@ class Userinput extends Model
 {
     //
     protected $table = 'user_inputs';
-    protected $fillable = ['userID','ioID','itemID','money'];
+    protected $fillable = ['userID','describe','itemID','money'];
 
     public function items() 
     {

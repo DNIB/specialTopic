@@ -16,7 +16,7 @@ class CreateUserInputsTable extends Migration
         Schema::create('user_inputs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('userID')->default(1);
-            $table->integer('ioID');
+            $table->text('describe')->nullable();
             $table->integer('itemID');
             $table->integer('money');
             $table->timestamps();

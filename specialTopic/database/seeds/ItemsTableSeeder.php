@@ -15,27 +15,27 @@ class ItemsTableSeeder extends Seeder
         //
         DB::table('items')->insert([
             'id' => 1,
-            'item' => 'eats',
+            'item' => '餐費',
         ]);
         DB::table('items')->insert([
             'id' => 2,
-            'item' => 'traffic',
+            'item' => '交通',
         ]);
         DB::table('items')->insert([
             'id' => 3,
-            'item' => 'enterment',
+            'item' => '娛樂',
         ]);
         DB::table('items')->insert([
             'id' => 4,
-            'item' => 'test4',
+            'item' => '其他支出',
         ]);
         DB::table('items')->insert([
             'id' => 5,
-            'item' => 'test5',
+            'item' => '薪水',
         ]);
         DB::table('items')->insert([
             'id' => 6,
-            'item' => 'test6',
+            'item' => '其他收入',
         ]);
     }
 }

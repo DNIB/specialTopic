@@ -18,7 +18,7 @@ class UserInputsTableSeeder extends Seeder
             DB::table('user_inputs')->insert([
                 'userID' => rand(1, 3),
                 'itemID' => rand(1, 6),
-                'ioID' => rand(1, 2),
+                'describe' => rand(1, 2),
                 'money' => rand(1, 3000),
             ]);
         }

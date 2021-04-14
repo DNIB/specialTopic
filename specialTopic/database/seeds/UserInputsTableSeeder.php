@@ -22,5 +22,12 @@ class UserInputsTableSeeder extends Seeder
                 'money' => rand(1, 3000),
             ]);
         }
+
+        DB::table('users')->insert([
+            'name' => 'admin',
+            'role' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => '$2y$10$mNEmur6PjzUooD7S4jC5uu6OIW0ZbWbqKkYd70d8.I3oFG902dEoy',
+        ]);
     }
 }

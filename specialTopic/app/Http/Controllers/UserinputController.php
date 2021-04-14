@@ -6,6 +6,7 @@ use App\Item;
 use Illuminate\Http\Request;
 use Auth;
 use App\Userinput;
+use Illuminate\Support\Facades\Gate;
 
 class UserinputController extends Controller
 {   
@@ -18,13 +19,25 @@ class UserinputController extends Controller
     public function index()
     {
         //
-        $UserID = Auth::user()->id;
 
-        $userinput = Userinput::where('userID', '=', $UserID)->get();
+        if (Gate::allows('admin')) {
 
-        $items = Item::All()->keyBy('id')->toArray();
+            $userinput = Userinput::where('id', '>', 0)->get();
+            $items = Item::All()->keyBy('id')->toArray();
+            
+            return view('index', compact('userinput','items'));
+
+        }
+
+        if (Gate::denies('admin')) {
+
+            $UserID = Auth::user()->id;
+            $userinput = Userinput::where('userID', '=', $UserID)->get();
+            $items = Item::All()->keyBy('id')->toArray();
         
-        return view('index', compact('userinput','items'));
+            return view('index', compact('userinput','items'));
+        }
+        
     }
 
     /**

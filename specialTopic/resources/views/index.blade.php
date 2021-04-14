@@ -14,6 +14,9 @@
     <table class="table table-striped">
         <thead>
             <tr>
+            @can('admin')
+            <td>id</td>
+            @endcan
             <td>userID</td>
             <td>項目</td>
             <td>金額</td>
@@ -26,6 +29,9 @@
         <tbody>
             @foreach($userinput as $case)
             <tr>
+                @can('admin')
+                <td>{{$case->id}}</td>
+                @endcan
                 <td>{{$case->userID}}</td>
                 <td>{{ $items[$case->itemID]['item']}}</td>
                 <td>{{$case->money}}</td>
@@ -34,7 +40,7 @@
                 <td>{{$case->updated_at}}</td>
                 <td><a href="{{ route('Userinput.edit', $case->id)}}" class="btn btn-primary">Edit</a></td>
                 <td>
-                    <form action="{{ route('Userinput.destroy', $case->id)}}" method="post">
+                    <form action="{{ route('Userinput.destroy', $case->id) }}" method="post">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger" type="submit">Delete</button>

@@ -8,7 +8,8 @@ use Auth;
 use App\Userinput;
 
 class UserinputController extends Controller
-{
+{   
+    
     /**
      * Display a listing of the resource.
      *

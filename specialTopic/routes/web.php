@@ -26,6 +26,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('Userinput', 'UserinputController');
+Route::resource('Userinput', 'UserinputController')->middleware('auth');
 
 Route::get('/dataCalculate', 'DataCalculateController@index');
+

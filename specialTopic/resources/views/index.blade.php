@@ -16,8 +16,8 @@
             <tr>
             @can('admin')
             <td>id</td>
-            @endcan
             <td>userID</td>
+            @endcan
             <td>項目</td>
             <td>金額</td>
             <td>備註</td>
@@ -31,8 +31,8 @@
             <tr>
                 @can('admin')
                 <td>{{$case->id}}</td>
-                @endcan
                 <td>{{$case->userID}}</td>
+                @endcan
                 <td>{{ $items[$case->itemID]['item']}}</td>
                 <td>{{$case->money}}</td>
                 <td>{{$case->describe}}</td>

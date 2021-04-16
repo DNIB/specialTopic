@@ -22,11 +22,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
-
+//middleware auth 使未登入者導向登入頁面
 Route::resource('Userinput', 'UserinputController')->middleware('auth');
 
-Route::get('/dataCalculate', 'DataCalculateController@index');
+Route::get('/dataCalculate', 'DataCalculateController@index')->middleware('auth');
 

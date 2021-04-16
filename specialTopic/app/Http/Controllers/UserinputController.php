@@ -6,6 +6,7 @@ use App\Item;
 use Illuminate\Http\Request;
 use Auth;
 use App\Userinput;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Gate;
 
 class UserinputController extends Controller
@@ -18,15 +19,12 @@ class UserinputController extends Controller
      */
     public function index()
     {
-        //
-
         if (Gate::allows('admin')) {
 
             $userinput = Userinput::where('id', '>', 0)->get();
             $items = Item::All()->keyBy('id')->toArray();
-            
-            return view('index', compact('userinput','items'));
 
+            return view('index', compact('userinput','items'));
         }
 
         if (Gate::denies('admin')) {
@@ -34,10 +32,9 @@ class UserinputController extends Controller
             $UserID = Auth::user()->id;
             $userinput = Userinput::where('userID', '=', $UserID)->get();
             $items = Item::All()->keyBy('id')->toArray();
-        
+            
             return view('index', compact('userinput','items'));
         }
-        
     }
 
     /**
@@ -47,8 +44,6 @@ class UserinputController extends Controller
      */
     public function create()
     {
-        //
-        // print_r($userId);
         return view('create');
     }
 
@@ -61,18 +56,23 @@ class UserinputController extends Controller
     public function store(Request $request)
     {
         $userID = Auth::user()->id;
-        //
-        $validatedData = $request->validate([
-            'itemID' => 'required',
-            'money' => 'required',
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'itemID' => 'required',
+                'money' => 'required|integer|max:999999|min:1',
+            ]);
+        } catch (\Throwable $e) {
+            //throw APIException($e->getMessage(), 422);
+            return redirect('/Userinput/create')->with('error', '金額輸入錯誤');
+        }
+
         $storeDataForm = [
             'money' => $request->get('money'),
             'userID' => $userID,
             'describe' => $request->get('describe'),
             'itemID' => $request->get('itemID'),
         ];
-        $show = Userinput::create($storeDataForm);
+        Userinput::create($storeDataForm);
         
         return redirect('/Userinput/create')->with('success', 'money is successfully saved');
     }
@@ -98,7 +98,19 @@ class UserinputController extends Controller
     {
         //
         $editData = Userinput::findOrFail($id);
-        return view('edit', compact('editData'));
+
+        if (Gate::allows('admin')) {
+            return view('edit', compact('editData'));
+        }
+
+        if (Gate::denies('admin')) {
+            if (Auth::user()->id === $editData->userID) {
+                return view('edit', compact('editData'));
+            }
+            else {
+                abort(403);
+            }
+        }
     }
 
     /**
@@ -112,14 +124,15 @@ class UserinputController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'describe' => 'nullable',
             'itemID' => 'required',
-            'money' => 'required',
+            'money' => 'required|integer|min:1|max:999999',
+            'describe' => 'nullable|string',
         ]);
+        
         Userinput::whereId($id)->update($validatedData);
         return redirect('/Userinput')->with('success', 'Data is successfully updated');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *

@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', '104記帳') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -23,8 +23,8 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand" href="{{ url('/home') }}">
+                    {{ '104記帳' }}
                 </a>
                 <a class="navbar-brand" href="{{ url('/Userinput/create') }}">
                     {{ '新增資料' }}
@@ -81,7 +81,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-3">
             @yield('content')
         </main>
     </div>

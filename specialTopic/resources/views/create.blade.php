@@ -1,45 +1,59 @@
 @extends('layouts.app')
 @section('content')
 <style>
-  .uper {
+.uper {
     margin-top: 40px;
-  }
+}
 </style>
-<div class="card uper">
-    <div class="card-header">
-        <p>請輸入資料</p>
-    </div>
-    <div class="card-body">
-        @if ($errors->any())
+<div class="container">
+    <div class="card uper">
+        @if(session()->get('error'))
             <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div><br/>
+                {{ session()->get('error') }}
+            </div>
+        @elseif(session()->get('success'))
+            <div class="alert alert-success">
+                {{ session()->get('success') }}
+            </div>
         @endif
+        
+        <div class="card-header">
+            <p>請輸入資料</p>
+        </div>
+        <div class="card-body">
+            @if ($errors->any())
+                {{-- <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div><br/> --}}
+            @endif
             <form method="post" action="{{ route('Userinput.store') }}">
-                <div class="form-group">
-                    @csrf
-                    <label>備註:</label>
-                    <input type="text" name="describe"/>
-                </div>
+                @csrf
                 <div class="form-group">
                     <label>選項 :</label>
-                    <p><input type="radio" name="itemID" value="1"/> 餐費</p>
+                    <p><input type="radio" name="itemID" value="1" required/> 餐費</p>
                     <p><input type="radio" name="itemID" value="2"/> 交通</p>
                     <p><input type="radio" name="itemID" value="3"/> 娛樂</p>
                     <p><input type="radio" name="itemID" value="4"/> 其他支出</p>
                     <p><input type="radio" name="itemID" value="5"/> 薪水</p>
                     <p><input type="radio" name="itemID" value="6"/> 其他收入</p>
                 </div>
+
                 <div class="form-group">
-                    <label>金額 :</label>
-                    <input type="number" name="money", min=1 , max=100000/>
+                    <label for="money">金額 :</label>
+                    <input class="form-control" type="number" name="money" min=1 max=999999 required/>
+                </div>
+            
+                <div class="form-group">
+                    <label for="describe">備註:</label>
+                    <textarea class="form-control" id="describe" name="describe" rows="3" placeholder="備註"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">新增資料</button>
             </form>
+        </div>
     </div>
 </div>
 @endsection

@@ -27,3 +27,7 @@ Route::resource('Userinput', 'UserinputController')->middleware('auth');
 
 Route::get('/dataCalculate', 'DataCalculateController@index')->middleware('auth');
 
+Route::get('/showChar', 'DataCalculateController@showChar')->middleware('auth');
+
+Route::get('/showSpendChar', 'DataCalculateController@showSpendChar')->middleware('auth');
+

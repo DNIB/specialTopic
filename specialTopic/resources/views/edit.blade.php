@@ -9,7 +9,6 @@
     <div class="card-header">
         請修改欲更正之資料
     </div>
-    <!-- 此處可使後端的驗證直接判定 不需前台後台各設一個條件 ex：require-->
     <div class="card-body">
         @if ($errors->any())
             <div class="alert alert-danger">

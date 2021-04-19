@@ -12,36 +12,110 @@ class DataCalculateController extends Controller
 {
     //
     public function index() {
-
-        //$sum = Userinput::user()->sum('price');
+        
         $UserID = Auth::user()->id;
-        $test = Userinput::where('userID', '=', $UserID)->sum('money');
-        $data = Userinput::where('userID', '=', $UserID)->get();
-        $eat = Userinput::where('userID', '=', $UserID)->where('itemID', '=', 1)->sum('money');
-        $traffic = Userinput::where('userID', '=', $UserID)->where('itemID', '=', 2)->sum('money');
-        $play = Userinput::where('userID', '=', $UserID)->where('itemID', '=', 3)->sum('money');
-        $otherspend = Userinput::where('userID', '=', $UserID)->where('itemID', '=', 4)->sum('money');
-        $salary = Userinput::where('userID', '=', $UserID)->where('itemID', '=', 5)->sum('money');
-        $otherearn = Userinput::where('userID', '=', $UserID)->where('itemID', '=', 6)->sum('money');
-        $allspend = Userinput::where('userID', '=', $UserID)->where('itemID', '<=', 4)->sum('money');
-        $allearn = Userinput::where('userID', '=', $UserID)->where('itemID', '>=', 5)->sum('money');
-        $finalmoney = $allearn - $allspend;
+        $userData = Userinput::with('items')->where('userID', $UserID)->get();
 
+        $items = [];
+        $allspend = 0;
+        $allearn = 0;
+        $itemName = [
+            'eat',
+            'traffic',
+            'play',
+            'otherspend',
+            'salary',
+            'otherearn',
+        ];
+        for ($i = 0; $i < 6; $i++) {
+            $items[$itemName[$i]] = $userData->where('itemID', $i + 1)->sum('money');
+            if ($i <= 3) {
+                $allspend += $items[$itemName[$i]];
+            }
+            else {
+                $allearn += $items[$itemName[$i]];
+            }
+        }
+        $finalmoney = $allearn - $allspend;
+        
+        $salary = $items['salary'];
+        $eat = $items['eat'];
+        $traffic = $items['traffic'];
+        $play = $items['play'];
+        $otherspend = $items['otherspend'];
+        $otherearn = $items['otherearn'];
 
         return view('dataCalculate', compact(
-            'test',
-            'data', 
             'eat', 
-            'allspend', 
-            'allearn', 
-            'traffic', 
+            'traffic',
             'play', 
             'otherspend', 
             'salary', 
             'otherearn', 
-            'finalmoney'
+            'allspend', 
+            'allearn', 
+            'finalmoney',
         ));
 
+    }
+
+    public function charData($id)
+    {   
+        $userData = Userinput::with('items')->where('userID', $id)->get();
+        $items = [];
+        $allspend = 0;
+        $allearn = 0;
+        $itemName = [
+            'eat',
+            'traffic',
+            'play',
+            'otherspend',
+            'salary',
+            'otherearn',
+        ];
+        for ($i = 0; $i < 6; $i++) {
+            $items[$itemName[$i]] = $userData->where('itemID', $i + 1)->sum('money');
+            if ($i <= 3) {
+                $allspend += $items[$itemName[$i]];
+            }
+            else {
+                $allearn += $items[$itemName[$i]];
+            }
+        }
+        
+        $salary = $items['salary'];
+        $eat = $items['eat'];
+        $traffic = $items['traffic'];
+        $play = $items['play'];
+        $otherspend = $items['otherspend'];
+        $otherearn = $items['otherearn'];
+
+        $result = [
+            'eat' => $eat,
+            'traffic' => $traffic,
+            'play' => $play,
+            'otherspend' => $otherspend,
+            'salary' => $salary,
+            'otherearn' => $otherearn,
+            'allspend' => $allspend,
+            'allearn' => $allearn,
+        ];
+
+        return $result;
+    }
+
+    public function showChar()
+    {
+        $id = Auth::user()->id;
+
+        return view('showChar', compact('id'));
+    }
+
+    public function showSpendChar()
+    {
+        $id = Auth::user()->id;
+
+        return view('showSpendChar', compact('id'));
     }
 
 }

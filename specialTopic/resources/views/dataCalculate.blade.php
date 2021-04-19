@@ -4,7 +4,7 @@
 
 @if ($finalmoney < 0) 
     <script>
-        alert('no money!!!!!!!!!!!!');
+        alert('餘額不足！！！');
     </script>
 @endif
 
@@ -55,12 +55,17 @@
         </tr>
     </table>
 </div>
+
+<form method='get' action="/showSpendChar/">
+    <button type="submit" class="btn btn-primary">花費圓餅圖</button>
+</form>
+
 <p style="color:red">餘額 {{ $finalmoney }}</p>
 
-@can('admin')
-@foreach($data as $datas)
-    <p>{{ $datas }}</p>
-@endforeach
-@endcan
+<form method='get' action="/showChar/">
+    <button type="submit" class="btn btn-primary">收支長條圖</button>
+</form>
+
+
 
 @endsection

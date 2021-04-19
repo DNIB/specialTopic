@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -19,11 +20,9 @@ class UrlTest extends TestCase
 
         $response->assertStatus(200);
     } 
-
+    
     public function testHomeUrl()
     {
-        $this->get('/home')
-             ->click('Laravel')
-            ->seePageIs('/home');
+        
     }
 }

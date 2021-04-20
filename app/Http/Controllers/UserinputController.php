@@ -22,7 +22,6 @@ class UserinputController extends Controller
         if (Gate::allows('admin')) {
 
             $userinput = Userinput::where('id', '>', 0)->get();
-            $items = Item::All()->keyBy('id')->toArray();
 
             return view('index', compact('userinput','items'));
         }
@@ -31,7 +30,6 @@ class UserinputController extends Controller
 
             $UserID = Auth::user()->id;
             $userinput = Userinput::where('userID', '=', $UserID)->with('items')->get();
-            //dd($userinput);
             
             return view('index', compact('userinput'));
         }

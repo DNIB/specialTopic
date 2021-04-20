@@ -23,7 +23,7 @@ class UserinputController extends Controller
 
             $userinput = Userinput::where('id', '>', 0)->get();
 
-            return view('index', compact('userinput','items'));
+            return view('index', compact('userinput'));
         }
 
         if (Gate::denies('admin')) {

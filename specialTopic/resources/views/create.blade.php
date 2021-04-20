@@ -21,15 +21,15 @@
             <p>請輸入資料</p>
         </div>
         <div class="card-body">
-            @if ($errors->any())
-                {{-- <div class="alert alert-danger">
+            {{-- @if ($errors->any())
+                <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>
-                </div><br/> --}}
-            @endif
+                </div><br/>
+            @endif --}}
             <form method="post" action="{{ route('Userinput.store') }}">
                 @csrf
                 <div class="form-group">
@@ -41,7 +41,7 @@
                     <p><input type="radio" name="itemID" value="5"/> 薪水</p>
                     <p><input type="radio" name="itemID" value="6"/> 其他收入</p>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="money">金額 :</label>
                     <input class="form-control" type="number" name="money" min=1 max=999999 required/>

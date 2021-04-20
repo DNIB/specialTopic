@@ -2,17 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+
 
 use App\Userinput;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class DataCalculateController extends Controller
+
 {
     //
-    public function index() {
-        
+    /**
+     * caculate data then return view and data
+     *
+     * @return view
+     */
+    public function index()
+    {
+
         $UserID = Auth::user()->id;
         $userData = Userinput::with('items')->where('userID', $UserID)->get();
 
@@ -31,13 +39,12 @@ class DataCalculateController extends Controller
             $items[$itemName[$i]] = $userData->where('itemID', $i + 1)->sum('money');
             if ($i <= 3) {
                 $allspend += $items[$itemName[$i]];
-            }
-            else {
+            } else {
                 $allearn += $items[$itemName[$i]];
             }
         }
         $finalmoney = $allearn - $allspend;
-        
+
         $salary = $items['salary'];
         $eat = $items['eat'];
         $traffic = $items['traffic'];
@@ -46,21 +53,25 @@ class DataCalculateController extends Controller
         $otherearn = $items['otherearn'];
 
         return view('dataCalculate', compact(
-            'eat', 
+            'eat',
             'traffic',
-            'play', 
-            'otherspend', 
-            'salary', 
-            'otherearn', 
-            'allspend', 
-            'allearn', 
+            'play',
+            'otherspend',
+            'salary',
+            'otherearn',
+            'allspend',
+            'allearn',
             'finalmoney',
         ));
-
     }
-
+    /**
+     * create api data for char
+     *
+     * @param int $id
+     * @return json data
+     */
     public function charData($id)
-    {   
+    {
         $userData = Userinput::with('items')->where('userID', $id)->get();
         $items = [];
         $allspend = 0;
@@ -77,12 +88,11 @@ class DataCalculateController extends Controller
             $items[$itemName[$i]] = $userData->where('itemID', $i + 1)->sum('money');
             if ($i <= 3) {
                 $allspend += $items[$itemName[$i]];
-            }
-            else {
+            } else {
                 $allearn += $items[$itemName[$i]];
             }
         }
-        
+
         $salary = $items['salary'];
         $eat = $items['eat'];
         $traffic = $items['traffic'];
@@ -102,6 +112,14 @@ class DataCalculateController extends Controller
         ];
 
         return $result;
+        // if(Auth::check()){
+        //     return view( 'showChar', [
+        //         'result' => $result
+        //     ]);
+        // } else {
+        //     return 'funck';
+        // }
+        
     }
 
     public function showChar()
@@ -113,9 +131,7 @@ class DataCalculateController extends Controller
 
     public function showSpendChar()
     {
-        $id = Auth::user()->id;
-
-        return view('showSpendChar', compact('id'));
+            $id = Auth::user()->id;
+            return view('showSpendChar', compact('id'));
     }
-
 }

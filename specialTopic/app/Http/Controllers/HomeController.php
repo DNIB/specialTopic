@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Userdata;
+use Auth;
+use Illuminate\Support\Facades\Gate;
 
 class HomeController extends Controller
 {
@@ -22,16 +25,21 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        return view('home');
+    {   
+        if (Gate::allows('admin')) {
+            $userdata = Userdata::where('id', '>', 0)->get();
+
+            $email = Auth::user()->email;
+            $name = Auth::user()->name;
+
+            return view('home', compact('email', 'name', 'userdata'));
+        }
+
+        if (Gate::denies('admin')) {
+            $email = Auth::user()->email;
+            $name = Auth::user()->name;
+
+            return view('home', compact('email', 'name'));
+        }
     }
 }
-
-
-
-
-/*
-dinner
-
-
-*/

@@ -1,4 +1,4 @@
-# specialTopic
+# special topic
 0407 9:49 push 專題進度 上傳新建乾淨的laravel檔案
 0407 15:57 ignore /laradock
 0407 17:00 laravel版本安裝成8 全部砍掉 重新安裝6
@@ -13,7 +13,7 @@
 0414 17:50 push 後台核心完成 新增欄位role 判斷是否admin admin可以看到/修改/刪除所有人資料
 0416 13:00 push 最佳化網頁連結等 修正edit可以被輸入負數等錯誤 增加驗證等
 0419 15:50 push 完成點擊連結圖表
-
+0420 10:15 push 完成admin修改/刪除用戶資料功能 準備部署
 
 
 

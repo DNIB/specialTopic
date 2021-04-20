@@ -31,3 +31,4 @@ Route::get('/showChar', 'DataCalculateController@showChar')->middleware('auth');
 
 Route::get('/showSpendChar', 'DataCalculateController@showSpendChar')->middleware('auth');
 
+Route::resource('userself', 'UserSelfController')->middleware('auth');

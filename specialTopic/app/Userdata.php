@@ -9,8 +9,13 @@ class Userdata extends Model
     //
     protected $table = 'users';
 
-    public function userinput()
+    public function userinputs()
     {
-        return $this->belongsToMany('App\Userinput');
+        return $this->hasMany(
+            Userinput::class,
+            'id',
+            'userID'
+        );
     }
+    
 }

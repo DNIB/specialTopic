@@ -56,7 +56,7 @@
     </table>
 </div>
 
-<form method='get' action="/showSpendChar/">
+<form method='get' action="/showSpendChar">
     <button type="submit" class="btn btn-primary">花費圓餅圖</button>
 </form>
 
@@ -65,7 +65,5 @@
 <form method='get' action="/showChar/">
     <button type="submit" class="btn btn-primary">收支長條圖</button>
 </form>
-
-
 
 @endsection

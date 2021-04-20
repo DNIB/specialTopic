@@ -14,16 +14,16 @@
     <table class="table table-striped">
         <thead>
             <tr>
-            @can('admin')
-            <td>id</td>
-            <td>userID</td>
-            @endcan
-            <td>項目</td>
-            <td>金額</td>
-            <td>備註</td>
-            <td>創建時間</td>
-            <td>更新時間</td>
-            <td colspan="2">修改資料</td>
+                @can('admin')
+                <td>id</td>
+                <td>userID</td>
+                @endcan
+                <td>項目</td>
+                <td>金額</td>
+                <td>備註</td>
+                <td>創建時間</td>
+                <td>更新時間</td>
+                <td colspan="2">修改資料</td>
             </tr>
         </thead>
         <tbody>

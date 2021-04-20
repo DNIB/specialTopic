@@ -18,4 +18,13 @@ class Userinput extends Model
             'id'
         );
     }
+
+    public function userSelfData() 
+    {
+        return $this->belongsTo(
+            Userdata::class,
+            'userID',
+            'id'
+        );
+    }
 }

@@ -17,6 +17,7 @@ function render(data){
     let play = data['play'];
     let otherspend = data['otherspend'];
     const labels = [ "餐費", "交通", "娛樂", "其他花費"];
+    
     var ctx = document.getElementById( "itemsAllSpend" ),
         itemsAllSpend = new Chart(ctx, {
             type: "doughnut",

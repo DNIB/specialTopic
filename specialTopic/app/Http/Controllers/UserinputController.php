@@ -102,7 +102,7 @@ class UserinputController extends Controller
         if (Gate::allows('admin')) {
             return view('edit', compact('editData'));
         }
-
+        
         if (Gate::denies('admin')) {
             if (Auth::user()->id === $editData->userID) {
                 return view('edit', compact('editData'));

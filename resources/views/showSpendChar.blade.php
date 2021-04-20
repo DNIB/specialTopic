@@ -2,7 +2,7 @@
 
 <canvas id="itemsAllSpend" width="600" height="600"></canvas>
 <script>
-fetch('http://localhost/api/charData/{{$id}}')
+fetch('/api/charData/{{$id}}')
     .then(response =>{
         return  response.json()//解析成一個json 物件
         console.log(response)

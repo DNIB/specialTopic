@@ -33,7 +33,7 @@
                 <td>{{$case->id}}</td>
                 <td>{{$case->userID}}</td>
                 @endcan
-                <td>{{ $items[$case->itemID]['item']}}</td>
+                <td>{{$case->items->item}}</td>
                 <td>{{$case->money}}</td>
                 <td>{{$case->describe}}</td>
                 <td>{{$case->created_at}}</td>

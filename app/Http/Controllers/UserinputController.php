@@ -30,10 +30,10 @@ class UserinputController extends Controller
         if (Gate::denies('admin')) {
 
             $UserID = Auth::user()->id;
-            $userinput = Userinput::where('userID', '=', $UserID)->get();
-            $items = Item::All()->keyBy('id')->toArray();
+            $userinput = Userinput::where('userID', '=', $UserID)->with('items')->get();
+            //dd($userinput);
             
-            return view('index', compact('userinput','items'));
+            return view('index', compact('userinput'));
         }
     }
 

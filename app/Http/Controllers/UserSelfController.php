@@ -6,6 +6,7 @@ use App\Userdata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\Userinput;
 
 class UserSelfController extends Controller
 {
@@ -100,6 +101,8 @@ class UserSelfController extends Controller
     {
         //
         $deleteData = Userdata::findOrFail($id);
+        Userinput::where('userID', $id)->delete();
+        
         $deleteData->delete();
         return back();
     }

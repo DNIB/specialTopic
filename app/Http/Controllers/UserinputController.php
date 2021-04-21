@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Item;
 use Illuminate\Http\Request;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use App\Userinput;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
@@ -25,8 +26,7 @@ class UserinputController extends Controller
 
             return view('index', compact('userinput'));
         }
-
-        if (Gate::denies('admin')) {
+        else {
 
             $UserID = Auth::user()->id;
             $userinput = Userinput::where('userID', '=', $UserID)->with('items')->get();
@@ -34,17 +34,15 @@ class UserinputController extends Controller
             return view('index', compact('userinput'));
         }
     }
-
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return view
      */
     public function create()
     {
         return view('create');
     }
-
     /**
      * Store a newly created resource in storage.
      *

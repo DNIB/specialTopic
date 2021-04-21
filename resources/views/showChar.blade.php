@@ -15,11 +15,13 @@ function render(data){
     let allspend = data['allspend'];
     let allearn = data['allearn'];
     const labels = [ "總支出", "總收入"];
+    
     var ctx = document.getElementById( "earnSpend" ),
         earnSpend = new Chart(ctx, {
             type: "bar",
             data: {
                 labels: labels,
+                
                 datasets: [{
                     label: "收支表",
                     data: [ allspend, allearn ],
@@ -27,10 +29,12 @@ function render(data){
                     "#FF0000",
                     "#00FF00",
                     ],
-                    borderWidth: 1
+                    borderWidth: 1,
                 }]
+                
             }
-        });
+    });
+        
 }
 </script>
 

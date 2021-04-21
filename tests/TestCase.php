@@ -4,6 +4,7 @@ namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use App\User;
+use App\Userdata;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -11,7 +12,11 @@ abstract class TestCase extends BaseTestCase
 
     protected function demoUserLoginIn()
     {
-        $user = factory(User::class)->create();
+        $user = User::create([
+            'name' => 'qwe',
+            'email' => 'qwe@qwe.com',
+            'password' => '123123123',
+        ]);
         // Use model in tests...
         // 登入 user
         $this->be($user);

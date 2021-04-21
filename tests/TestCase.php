@@ -13,6 +13,7 @@ abstract class TestCase extends BaseTestCase
     protected function demoUserLoginIn()
     {
         $user = User::create([
+            'id' => 999,
             'name' => 'qwe',
             'email' => 'qwe@qwe.com',
             'password' => '123123123',

@@ -74,21 +74,10 @@ class UserinputController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 編輯資料
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return view
      */
     public function edit($id)
     {

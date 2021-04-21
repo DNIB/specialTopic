@@ -112,13 +112,6 @@ class DataCalculateController extends Controller
         ];
 
         return $result;
-        // if(Auth::check()){
-        //     return view( 'showChar', [
-        //         'result' => $result
-        //     ]);
-        // } else {
-        //     return 'funck';
-        // }
         
     }
 

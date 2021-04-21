@@ -66,4 +66,12 @@
     <button type="submit" class="btn btn-primary">收支長條圖</button>
 </form>
 
+<?php $user_id = Auth::user()->id; ?>
+
+@component ('showSpendChar')
+    @slot('id')
+        {{ $user_id }}
+    @endslot
+@endcomponent
+
 @endsection

@@ -7,10 +7,14 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Request;
 use Tests\TestCase;
+use App\User;
+use App\Userinput;
+use Illuminate\Support\Facades\Auth;
 
 class UserinputControllerTest extends TestCase
 {   
     use DatabaseMigrations;
+    use RefreshDatabase;
     /**
      * test user get route Userinput.index
      *
@@ -38,7 +42,7 @@ class UserinputControllerTest extends TestCase
      *
      * @return view
      */
-    public function testSuccessCreate()
+    public function testCreateSuccess()
     {
         $this->demoUserLoginIn();
 
@@ -60,18 +64,33 @@ class UserinputControllerTest extends TestCase
      *
      * @return void
      */
-    public function testSuccessStore()
+    public function testStoreSuccess()
     {   
         $this->demoUserLoginIn();
 
-        $response = $this->get(route('Userinput.store'));
-        $response->assertStatus(200);
+        Userinput::create([
+            'userID' => 999,
+            'money' => 999,
+            'itemID' => 1,
+        ]);
+        
+        $response = $this->post(route('Userinput.store', 1));
+        
+        $response->assertStatus(302);
+        
     }
 
     public function testFailStore()
     {
         $this->demoUserLoginIn();
-        
+
+        $response = ([
+            'itemID' => '1',
+            'money' => '-1',
+        ]);
+
+        $response = $this->get(route('Userinput.store'));
+        $response->assertStatus(200);
     }
 
     public function testSuccessEdit()
@@ -96,6 +115,23 @@ class UserinputControllerTest extends TestCase
     {
         $this->demoUserLoginIn();
 
+    }
+
+    public function testSuccessDelete()
+    {
+        $this->demoUserLoginIn();
+
+        $data = Userinput::create([
+            'userID' => 999,
+            'itemID' => 1,
+            'describe' => 'test',
+            'money' => 999,
+            'created_at' => '2021-04-18',
+            'updated_at' => '2021-04-18',
+        ]);
+        $response = $this->delete(route('Userinput.destroy', 1));
+        
+        $response->assertStatus(302);
     }
 
 }

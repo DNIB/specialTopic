@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Gate;
 
 class UserinputController extends Controller
-{   
+{
+
     
     /**
      * Display a listing of the resource.
@@ -24,8 +25,7 @@ class UserinputController extends Controller
             $userinput = Userinput::where('id', '>', 0)->with('items')->with('userSelfData')->get();
 
             return view('index', compact('userinput'));
-        }
-        else {
+        } else {
             $UserID = Auth::user()->id;
             $userinput = Userinput::where('userID', '=', $UserID)->with('items')->get();
             
@@ -89,8 +89,7 @@ class UserinputController extends Controller
         if (Gate::denies('admin')) {
             if (Auth::user()->id === $editData->userID) {
                 return view('edit', compact('editData'));
-            }
-            else {
+            } else {
                 abort(403);
             }
         }
@@ -132,13 +131,12 @@ class UserinputController extends Controller
     }
     
     public function showSearchItem(Request $request)
-    {   
+    {
         $data = $request->get('test');
         if (Gate::allows('admin')) {
             $userinput = Userinput::where('id', '>', 0)->where('itemID', $data)->with('userSelfData')->get();
             return view('index', compact('userinput'));
-        }
-        else {
+        } else {
             $UserID = Auth::user()->id;
             $userinput = Userinput::where('userID', '=', $UserID)->where('itemID', $data)->with('items')->get();
             

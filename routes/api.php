@@ -18,6 +18,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/charData/{id}', 'DataCalculateController@charData');
-
-
-

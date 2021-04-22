@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-
-
 use App\Userinput;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class DataCalculateController extends Controller
-
 {
     //
     /**

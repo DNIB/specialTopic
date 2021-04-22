@@ -12,7 +12,8 @@ use App\Userinput;
 use Illuminate\Support\Facades\Auth;
 
 class UserinputControllerTest extends TestCase
-{   
+{
+
     use DatabaseMigrations;
     use RefreshDatabase;
     /**
@@ -65,7 +66,7 @@ class UserinputControllerTest extends TestCase
      * @return void
      */
     public function testStoreSuccess()
-    {   
+    {
         $this->demoUserLoginIn();
 
         Userinput::create([
@@ -102,7 +103,6 @@ class UserinputControllerTest extends TestCase
     {
         $this->demoUserLoginIn();
         $this->assertTrue(true);
-
     }
 
     public function testSuccessUpdate()
@@ -133,5 +133,4 @@ class UserinputControllerTest extends TestCase
         
         $response->assertStatus(302);
     }
-
 }

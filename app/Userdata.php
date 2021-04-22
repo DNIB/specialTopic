@@ -21,5 +21,4 @@ class Userdata extends Model
             'userID'
         );
     }
-    
 }

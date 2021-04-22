@@ -10,7 +10,7 @@ class Userinput extends Model
     protected $table = 'user_inputs';
     protected $fillable = ['userID','describe','itemID','money'];
 
-    public function items() 
+    public function items()
     {
         return $this->belongsTo(
             Item::class,
@@ -19,7 +19,7 @@ class Userinput extends Model
         );
     }
 
-    public function userSelfData() 
+    public function userSelfData()
     {
         return $this->belongsTo(
             Userdata::class,

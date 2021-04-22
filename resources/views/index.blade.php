@@ -18,7 +18,7 @@
             <option value="6">其他收入</option>
         </select>
         @can('admin')
-            <input type="text">
+            <input type="number" name="searchUser">
         @endcan
         <button type="submit">搜尋</button>
     </form>
@@ -35,6 +35,7 @@
                 @can('admin')
                     <td>id</td>
                     <td>userID</td>
+                    <td>userName</td>
                 @endcan
                 <td>項目</td>
                 <td>金額</td>
@@ -48,8 +49,9 @@
             @foreach($userinput as $case)
             <tr>
                 @can('admin')
-                    <td>{{$case->id}}</td>
-                    <td>{{$case->userID}}</td>
+                    <td>{{ $case->id }}</td>
+                    <td>{{ $case->userID }}</td>
+                    <td>{{ $case->userSelfData->name }}</td>
                 @endcan
                 <td>{{$case->items->item}}</td>
                 <td>{{$case->money}}</td>

@@ -21,7 +21,7 @@ class UserinputController extends Controller
     public function index()
     {
         if (Gate::allows('admin')) {
-            $userinput = Userinput::where('id', '>', 0)->get();
+            $userinput = Userinput::where('id', '>', 0)->with('items')->with('userSelfData')->get();
 
             return view('index', compact('userinput'));
         }
@@ -136,7 +136,6 @@ class UserinputController extends Controller
         $data = $request->get('test');
         if (Gate::allows('admin')) {
             $userinput = Userinput::where('id', '>', 0)->where('itemID', $data)->with('userSelfData')->get();
-
             return view('index', compact('userinput'));
         }
         else {

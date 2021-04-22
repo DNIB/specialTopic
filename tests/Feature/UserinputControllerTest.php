@@ -60,7 +60,7 @@ class UserinputControllerTest extends TestCase
         $response->assertRedirect('/login');
     }
     /**
-     * test User get route Userinput.create
+     * test User get route Userinput.store
      *
      * @return void
      */
@@ -74,10 +74,9 @@ class UserinputControllerTest extends TestCase
             'itemID' => 1,
         ]);
         
-        $response = $this->post(route('Userinput.store', 1));
+        $response = $this->post(route('Userinput.store'));
         
         $response->assertStatus(302);
-        
     }
 
     public function testFailStore()

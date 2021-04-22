@@ -1,19 +1,20 @@
-<div style="width: 400px; height: 400px">
+<div style="width: 350px; height: 350px">
     <canvas id="itemsAllSpend"></canvas>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
 fetch('/api/charData/{{ $id }}')
     .then(response =>{
         return  response.json()//解析成一個json 物件
         console.log(response)
     })// 因為轉成json 物件 也回傳一個promise  出來
     .then( data =>{
-        render(data);
+        renderPie(data);
 })
 
-function render(data){
+function renderPie(data){
     
     let eat = data['eat'];
     let traffic = data['traffic'];
@@ -41,8 +42,6 @@ function render(data){
             labels: labels,
             datasets: data,
         },
-        options: {
-        }
     });
 }
 </script>

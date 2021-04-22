@@ -16,18 +16,16 @@ class UserinputController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return view
      */
     public function index()
     {
         if (Gate::allows('admin')) {
-
             $userinput = Userinput::where('id', '>', 0)->get();
 
             return view('index', compact('userinput'));
         }
         else {
-
             $UserID = Auth::user()->id;
             $userinput = Userinput::where('userID', '=', $UserID)->with('items')->get();
             
@@ -131,5 +129,13 @@ class UserinputController extends Controller
         $deleteData->delete();
         
         return redirect()->back()->with('success', 'Data is successfully deleted');
+    }
+    
+    public function showSearchItem(Request $request)
+    {   
+        
+        $data = $request->get('test');
+        dd($data);
+        return view('create');
     }
 }

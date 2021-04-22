@@ -8,8 +8,8 @@
 <div class="uper">
     @if(session()->get('success'))
         <div class="alert alert-success">
-        {{ session()->get('success') }}  
-        </div><br />
+        {{ session()->get('success') }}
+        </div><br/>
     @endif
     <table class="table table-striped">
         <thead>
@@ -51,4 +51,20 @@
         </tbody>
     </table>
 <div>
+
+<div>
+    <form method="post" action="{{ route('Userinput.showSearchItem') }}">
+        @csrf
+        <select name="test">
+            <option value="1">餐費</option>
+            <option value="2">交通</option>
+            <option value="3">娛樂</option>
+            <option value="4">其他支出</option>
+            <option value="5">薪水</option>
+            <option value="6">其他收入</option>
+        </select>
+        <button type="submit">搜尋</button>
+    </form>
+</div>
+
 @endsection

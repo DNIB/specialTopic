@@ -112,7 +112,6 @@ class DataCalculateController extends Controller
         ];
 
         return $result;
-        
     }
 
     public function showChar()

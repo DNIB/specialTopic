@@ -103,7 +103,7 @@ class UserSelfController extends Controller
         $deleteData = Userdata::findOrFail($id);
         Userinput::where('userID', $id)->delete();
         $deleteData->delete();
-
+        
         return back();
     }
 }

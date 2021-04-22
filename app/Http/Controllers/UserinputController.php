@@ -133,9 +133,17 @@ class UserinputController extends Controller
     
     public function showSearchItem(Request $request)
     {   
-        
         $data = $request->get('test');
-        dd($data);
-        return view('create');
+        if (Gate::allows('admin')) {
+            $userinput = Userinput::where('id', '>', 0)->where('itemID', $data)->with('userSelfData')->get();
+
+            return view('index', compact('userinput'));
+        }
+        else {
+            $UserID = Auth::user()->id;
+            $userinput = Userinput::where('userID', '=', $UserID)->where('itemID', $data)->with('items')->get();
+            
+            return view('index', compact('userinput'));
+        }
     }
 }

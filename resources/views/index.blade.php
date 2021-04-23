@@ -8,8 +8,8 @@
 <div>
     <form method="post" action="{{ route('Userinput.showSearchItem') }}">
         @csrf
-        <select name="test">
-            <option disabled selected>請選擇搜尋項目</option>
+        <select name="searchItem">
+            <option value="0" disabled selected>請選擇搜尋項目</option>
             <option value="1">餐費</option>
             <option value="2">交通</option>
             <option value="3">娛樂</option>

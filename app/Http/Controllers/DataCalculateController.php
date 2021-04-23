@@ -120,7 +120,7 @@ class DataCalculateController extends Controller
 
     public function showSpendChar()
     {
-            $id = Auth::user()->id;
-            return view('showSpendChar', compact('id'));
+        $id = Auth::user()->id;
+        return view('showSpendChar', compact('id'));
     }
 }

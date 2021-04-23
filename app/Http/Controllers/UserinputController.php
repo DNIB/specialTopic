@@ -132,15 +132,22 @@ class UserinputController extends Controller
     
     public function showSearchItem(Request $request)
     {
-        $data = $request->get('test');
+        $searchItem = $request->get('searchItem');
+        $searchUser = $request->get('searchUser');
         if (Gate::allows('admin')) {
-            $userinput = Userinput::where('id', '>', 0)->where('itemID', $data)->with('userSelfData')->get();
-            return view('index', compact('userinput'));
+            if ($searchUser != null && $searchItem != 0) {
+                $userinput = Userinput::where('id', '>', 0)->where('itemID', $searchItem)->where('userID', $searchUser)->with('userSelfData')->get();
+            }
+            else if ($searchUser != null && $searchItem == 0) {
+                $userinput = Userinput::where('id', '>', 0)->where('userID', $searchUser)->with('userSelfData')->get();
+            }
+            else {
+                $userinput = Userinput::where('id', '>', 0)->where('itemID', $searchItem)->with('userSelfData')->get();
+            }
         } else {
             $UserID = Auth::user()->id;
-            $userinput = Userinput::where('userID', '=', $UserID)->where('itemID', $data)->with('items')->get();
-            
-            return view('index', compact('userinput'));
+            $userinput = Userinput::where('userID', '=', $UserID)->where('itemID', $searchItem)->with('items')->get();
         }
+        return view('index', compact('userinput'));
     }
 }

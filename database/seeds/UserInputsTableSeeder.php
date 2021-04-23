@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class UserInputsTableSeeder extends Seeder
 {
@@ -28,6 +29,7 @@ class UserInputsTableSeeder extends Seeder
             'role' => 'admin',
             'email' => 'admin@admin.com',
             'password' => '$2y$10$mNEmur6PjzUooD7S4jC5uu6OIW0ZbWbqKkYd70d8.I3oFG902dEoy',
+            'api_token' => Str::random(80),
         ]);
     }
 }

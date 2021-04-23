@@ -1,7 +1,7 @@
 dist: bionic
 language: php
 php:
-  - 7.3
+  - 7.4
 
 branch:
   only:
@@ -41,10 +41,11 @@ deploy:
   # AWS_ACCESS_KEY 和 AWS_SECRET_KEY 可以存進 travis CI 裡
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
-  region: "<region name>"
-  app: "<app name>"
-  env: "<env name>"
-  bucket_name: "<bucket name>"
+  region: "ap-northeast-1"
+  app: "david-specialTopic"
+  env: "Davidspecialtopic-env-1"
+  bucket_name: "104-aws-training-cicd-bucket"
+  bucket_path: "david/"
 
 after_deploy:
   - echo "done deploying"

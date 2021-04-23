@@ -5,7 +5,7 @@ php:
 
 branch:
   only:
-    - master
+    - main
 
 services:
   - mysql

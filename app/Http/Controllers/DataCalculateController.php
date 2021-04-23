@@ -114,7 +114,7 @@ class DataCalculateController extends Controller
     public function showChar()
     {
         $id = Auth::user()->id;
-
+        
         return view('showChar', compact('id'));
     }
 

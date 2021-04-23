@@ -137,13 +137,10 @@ class UserinputController extends Controller
         if (Gate::allows('admin')) {
             if ($searchUser != null && $searchItem != 0) {
                 $userinput = Userinput::where('id', '>', 0)->where('itemID', $searchItem)->where('userID', $searchUser)->with('userSelfData')->get();
-                
-            } else if ($searchUser != null && $searchItem == 0) {
+            } elseif ($searchUser != null && $searchItem == 0) {
                 $userinput = Userinput::where('id', '>', 0)->where('userID', $searchUser)->with('userSelfData')->get();
-
             } else {
                 $userinput = Userinput::where('id', '>', 0)->where('itemID', $searchItem)->with('userSelfData')->get();
-
             }
         } else {
             $UserID = Auth::user()->id;

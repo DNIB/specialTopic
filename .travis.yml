@@ -46,6 +46,8 @@ deploy:
   env: "Davidspecialtopic-env-1"
   bucket_name: "104-aws-training-cicd-bucket"
   bucket_path: "david/"
+  on:
+    branch: main
 
 after_deploy:
   - echo "done deploying"

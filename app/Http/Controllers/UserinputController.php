@@ -57,7 +57,7 @@ class UserinputController extends Controller
             ]);
         } catch (\Throwable $e) {
             //throw APIException($e->getMessage(), 422);
-            return redirect('/Userinput/create')->with('error', '金額輸入錯誤');
+            return redirect('/Userinput/create')->with('error', '請依照規格輸入');
         }
 
         $storeDataForm = [

@@ -22,4 +22,18 @@ abstract class TestCase extends BaseTestCase
         // 登入 user
         $this->be($user);
     }
+
+    protected function demoAdminLoginIn()
+    {
+        $admin = User::forceCreate([
+            'id' => 1,
+            'name' => 'qwe',
+            'role' => 'admin',
+            'email' => 'qwe@qwe.com',
+            'password' => '123123123',
+        ]);
+        // Use model in tests...
+        // 登入 user
+        $this->be($admin);
+    }
 }

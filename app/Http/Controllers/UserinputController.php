@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Userinput;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Gate;
+use App\User;
 
 class UserinputController extends Controller
 {
@@ -38,7 +39,7 @@ class UserinputController extends Controller
      * @return view
      */
     public function create()
-    {
+    {   
         return view('create');
     }
     /**

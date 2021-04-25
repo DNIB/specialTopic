@@ -6,6 +6,7 @@ use App\Userinput;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use App\User;
 
 class DataCalculateController extends Controller
 {
@@ -17,7 +18,6 @@ class DataCalculateController extends Controller
      */
     public function index()
     {
-
         $UserID = Auth::user()->id;
         $userData = Userinput::with('items')->where('userID', $UserID)->get();
 
@@ -68,7 +68,11 @@ class DataCalculateController extends Controller
      * @return json data
      */
     public function charData($id)
-    {
+    {   
+        $a=Auth::user()->api_token;
+        $e=User::where('id', $id)->max('api_token');
+        //判斷是不是請求自己的api
+
         $userData = Userinput::with('items')->where('userID', $id)->get();
         $items = [];
         $allspend = 0;
@@ -108,19 +112,10 @@ class DataCalculateController extends Controller
             'allearn' => $allearn,
         ];
 
-        return $result;
-    }
-
-    public function showChar()
-    {
-        $id = Auth::user()->id;
-        
-        return view('showChar', compact('id'));
-    }
-
-    public function showSpendChar()
-    {
-        $id = Auth::user()->id;
-        return view('showSpendChar', compact('id'));
+        if($a==$e){
+            return $result;
+        } else {
+            dd(123);
+        }
     }
 }

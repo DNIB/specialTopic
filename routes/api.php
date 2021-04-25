@@ -17,6 +17,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/charData/{id}', 'DataCalculateController@charData');
-
-//->middleware('auth:api') 處理傳送token以保護API
+Route::get('/charData/{id}', 'DataCalculateController@charData')->middleware('auth:api');

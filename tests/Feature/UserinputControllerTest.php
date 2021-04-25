@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UserinputControllerTest extends TestCase
 {
-
     use DatabaseMigrations;
     use RefreshDatabase;
     /**
@@ -26,6 +25,15 @@ class UserinputControllerTest extends TestCase
         $this->demoUserLoginIn();
 
         $response = $this->get(route('Userinput.index'));
+        $response->assertViewIs('index');
+    }
+
+    public function testSuccessIndexAdmin()
+    {
+        $this->demoAdminLoginIn();
+
+        $response = $this->get(route('Userinput.index'));
+        
         $response->assertViewIs('index');
     }
     /**
@@ -69,14 +77,22 @@ class UserinputControllerTest extends TestCase
     {
         $this->demoUserLoginIn();
 
-        Userinput::create([
-            'userID' => 999,
-            'money' => 999,
+        // $data = Userinput::create([
+        //     'userID' => 1,
+        //     'itemID' => 1,
+        //     'describe' => 'test',
+        //     'money' => 999,
+        // ]);
+        // 加上Userinput::一定會報錯
+
+        $data = [
+            'userID' => 1,
             'itemID' => 1,
-        ]);
+            'describe' => 'test',
+            'money' => 999,
+        ];
         
-        $response = $this->post(route('Userinput.store'));
-        
+        $response = $this->post(route('Userinput.store', $data));
         $response->assertStatus(302);
     }
 
@@ -84,37 +100,83 @@ class UserinputControllerTest extends TestCase
     {
         $this->demoUserLoginIn();
 
-        $response = ([
-            'itemID' => '1',
-            'money' => '-1',
-        ]);
-
-        $response = $this->get(route('Userinput.store'));
-        $response->assertStatus(200);
+        $data = [
+            'userID' => 1,
+            'itemID' => 1,
+            'describe' => 'test',
+            'money' => -1,
+        ];
+        
+        $response = $this->post(route('Userinput.store'), $data);
+        $response->assertStatus(302);
     }
 
     public function testSuccessEdit()
     {
         $this->demoUserLoginIn();
-        $this->assertTrue(true);
+
+        $data = Userinput::create([
+            'userID' => 1,
+            'itemID' => 1,
+            'describe' => 'test',
+            'money' => 999,
+        ]);
+
+        $response = $this->get(route('Userinput.edit', 1));
+        $response->assertStatus(200);
     }
 
     public function testFailEdit()
     {
         $this->demoUserLoginIn();
-        $this->assertTrue(true);
+
+        $data = Userinput::create([
+            'userID' => 2,
+            'itemID' => 1,
+            'describe' => 'test',
+            'money' => 999,
+        ]);
+
+        $response = $this->get(route('Userinput.edit', 1));
+        $response->assertStatus(403);
+    }
+
+    public function testAdminEdit()
+    {
+        $this->demoAdminLoginIn();
+
+        $data = Userinput::create([
+            'userID' => 1,
+            'itemID' => 1,
+            'describe' => 'test',
+            'money' => 999,
+        ]);
+
+        $response = $this->get(route('Userinput.edit', 1));
+        $response->assertStatus(200);
     }
 
     public function testSuccessUpdate()
     {
         $this->demoUserLoginIn();
-        $this->assertTrue(true);
-    }
+        
+        $set = Userinput::create([
+            'userID' => 1,
+            'itemID' => 1,
+            'describe' => 'test',
+            'money' => 999,
+        ]);
+        
+        $data = [
+            'userID' => 1,
+            'itemID' => 1,
+            'describe' => 'test',
+            'money' => 99,
+        ];
 
-    public function testFailUpdate()
-    {
-        $this->demoUserLoginIn();
-        $this->assertTrue(true);
+        $response = $this->put("Userinput/1", $data);
+
+        $response->assertStatus(302);
     }
 
     public function testSuccessDelete()
@@ -126,11 +188,68 @@ class UserinputControllerTest extends TestCase
             'itemID' => 1,
             'describe' => 'test',
             'money' => 999,
-            'created_at' => '2021-04-18',
-            'updated_at' => '2021-04-18',
         ]);
-        $response = $this->delete(route('Userinput.destroy', 1));
         
+        $response = $this->delete(route('Userinput.destroy', 1));
         $response->assertStatus(302);
+    }
+
+    public function testUserShowSearchItem()
+    {
+        $this->demoUserLoginIn();
+
+        Userinput::create([
+            'userID' => 1,
+            'itemID' => 1,
+            'describe' => 'test',
+            'money' => 999,
+        ]);
+        
+        $data = [
+            'searchUser' => 1,
+        ];
+
+        $response = $this->post(route('Userinput.showSearchItem'), $data);
+        $response->assertStatus(200);
+    }
+
+    public function testAdminShowSearchItem()
+    {
+        $this->demoAdminLoginIn();
+
+        Userinput::create([
+            'userID' => 999,
+            'itemID' => 1,
+            'describe' => 'test',
+            'money' => 999,
+        ]);
+        
+        $data = [
+            'searchUser' => 1,
+            'searchItem' => 1,
+        ];
+
+        $response = $this->post(route('Userinput.showSearchItem'), $data);
+        $response->assertStatus(200);
+    }
+
+    public function testAdminShowSearchItemZero()
+    {
+        $this->demoAdminLoginIn();
+
+        Userinput::create([
+            'userID' => 999,
+            'itemID' => 1,
+            'describe' => 'test',
+            'money' => 999,
+        ]);
+        
+        $data = [
+            'searchUser' => 1,
+            'searchItem' => 0,
+        ];
+
+        $response = $this->post(route('Userinput.showSearchItem'), $data);
+        $response->assertStatus(200);
     }
 }

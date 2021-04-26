@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Userinput;
+use App\Models\Userinput;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use App\User;
 
 class DataCalculateController extends Controller
 {

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Userdata;
+use App\Models\Userdata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
-use App\Userinput;
+use App\Models\Userinput;
 
 class UserSelfController extends Controller
 {
@@ -14,7 +14,7 @@ class UserSelfController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return view
      */
     public function edit($id)
     {
@@ -28,7 +28,7 @@ class UserSelfController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return redirect
      */
     public function update(Request $request, $id)
     {
@@ -53,7 +53,7 @@ class UserSelfController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return view
+     * @return redirect
      */
     public function destroy($id)
     {

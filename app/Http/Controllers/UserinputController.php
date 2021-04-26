@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Item;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
-use App\Userinput;
+use App\Models\Userinput;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Gate;
 use App\User;
@@ -55,9 +55,9 @@ class UserinputController extends Controller
             $validatedData = $request->validate([
                 'itemID' => 'required',
                 'money' => 'required|integer|max:999999|min:1',
+                'describe' => 'nullable|string|',
             ]);
         } catch (\Throwable $e) {
-            //throw APIException($e->getMessage(), 422);
             return redirect('/Userinput/create')->with('error', '請依照規格輸入');
         }
 

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\User;
-use App\Userinput;
+use App\Models\Userinput;
 
 class dataCalculateTest extends TestCase
 {   
@@ -24,7 +24,11 @@ class dataCalculateTest extends TestCase
 
         $response->assertStatus(200);
     }
-
+    /**
+     *  測試點擊後的導向
+     * 
+     * @return void
+     */
     public function testIndex()
     {
         $this->demoUserLoginIn();

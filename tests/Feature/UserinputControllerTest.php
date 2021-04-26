@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Request;
 use Tests\TestCase;
 use App\User;
-use App\Userinput;
+use App\Models\Userinput;
 use Illuminate\Support\Facades\Auth;
 
 class UserinputControllerTest extends TestCase
@@ -25,9 +25,14 @@ class UserinputControllerTest extends TestCase
         $this->demoUserLoginIn();
 
         $response = $this->get(route('Userinput.index'));
+
         $response->assertViewIs('index');
     }
-
+    /**
+     * 測試admin進入
+     * 
+     * @return view
+     */
     public function testSuccessIndexAdmin()
     {
         $this->demoAdminLoginIn();
@@ -49,7 +54,7 @@ class UserinputControllerTest extends TestCase
     /**
      * test user get route Userinput.create
      *
-     * @return view
+     * @return viewIs
      */
     public function testCreateSuccess()
     {
@@ -77,14 +82,6 @@ class UserinputControllerTest extends TestCase
     {
         $this->demoUserLoginIn();
 
-        // $data = Userinput::create([
-        //     'userID' => 1,
-        //     'itemID' => 1,
-        //     'describe' => 'test',
-        //     'money' => 999,
-        // ]);
-        // 加上Userinput::一定會報錯
-
         $data = [
             'userID' => 1,
             'itemID' => 1,
@@ -95,7 +92,11 @@ class UserinputControllerTest extends TestCase
         $response = $this->post(route('Userinput.store', $data));
         $response->assertStatus(302);
     }
-
+    /**
+     * test store not allow value
+     * 
+     * @return void
+     */
     public function testFailStore()
     {
         $this->demoUserLoginIn();
@@ -110,7 +111,11 @@ class UserinputControllerTest extends TestCase
         $response = $this->post(route('Userinput.store'), $data);
         $response->assertStatus(302);
     }
-
+    /**
+     * test success edit data
+     * 
+     * @return void
+     */
     public function testSuccessEdit()
     {
         $this->demoUserLoginIn();
@@ -125,7 +130,11 @@ class UserinputControllerTest extends TestCase
         $response = $this->get(route('Userinput.edit', 1));
         $response->assertStatus(200);
     }
-
+    /**
+     * test fail edit data
+     * 
+     * @return void
+     */
     public function testFailEdit()
     {
         $this->demoUserLoginIn();
@@ -140,7 +149,11 @@ class UserinputControllerTest extends TestCase
         $response = $this->get(route('Userinput.edit', 1));
         $response->assertStatus(403);
     }
-
+    /**
+     * test admin edit data
+     * 
+     * @return void
+     */
     public function testAdminEdit()
     {
         $this->demoAdminLoginIn();
@@ -155,7 +168,11 @@ class UserinputControllerTest extends TestCase
         $response = $this->get(route('Userinput.edit', 1));
         $response->assertStatus(200);
     }
-
+    /**
+     * test success edit data
+     * 
+     * @return void
+     */
     public function testSuccessUpdate()
     {
         $this->demoUserLoginIn();
@@ -178,7 +195,11 @@ class UserinputControllerTest extends TestCase
 
         $response->assertStatus(302);
     }
-
+    /**
+     * test success delete data
+     * 
+     * @return void
+     */
     public function testSuccessDelete()
     {
         $this->demoUserLoginIn();
@@ -193,7 +214,11 @@ class UserinputControllerTest extends TestCase
         $response = $this->delete(route('Userinput.destroy', 1));
         $response->assertStatus(302);
     }
-
+    /**
+     * test show user search items
+     * 
+     * @return void
+     */
     public function testUserShowSearchItem()
     {
         $this->demoUserLoginIn();
@@ -212,7 +237,11 @@ class UserinputControllerTest extends TestCase
         $response = $this->post(route('Userinput.showSearchItem'), $data);
         $response->assertStatus(200);
     }
-
+    /**
+     * test admin search items then show them
+     * 
+     * @return void
+     */
     public function testAdminShowSearchItem()
     {
         $this->demoAdminLoginIn();
@@ -232,7 +261,11 @@ class UserinputControllerTest extends TestCase
         $response = $this->post(route('Userinput.showSearchItem'), $data);
         $response->assertStatus(200);
     }
-
+    /**
+     * test admin search items if search equal zero
+     * 
+     * @return void
+     */
     public function testAdminShowSearchItemZero()
     {
         $this->demoAdminLoginIn();

@@ -6,11 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\User;
-use App\Models\Userinput;
-use Illuminate\Http\Response;
 
-class dataCalculateTest extends TestCase
+class HomeControllerTest extends TestCase
 {   
     use DatabaseMigrations;
     use RefreshDatabase;
@@ -25,17 +22,20 @@ class dataCalculateTest extends TestCase
 
         $response->assertStatus(200);
     }
-    /**
-     *  測試點擊後的導向
-     * 
-     * @return void
-     */
-    public function testIndex()
+
+    public function testAdminIndex()
+    {
+        $this->demoAdminLoginIn();
+
+        $response = $this->get('/home');
+        $response->assertViewIs('home');
+    }
+
+    public function testUserIndex()
     {
         $this->demoUserLoginIn();
 
-        $response = $this->get('/dataCalculate');
-        $response->assertStatus(200);
-    }   
-        
+        $response = $this->get('/home');
+        $response->assertViewIs('home');
+    }
 }

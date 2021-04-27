@@ -18,7 +18,6 @@ class UserSelfController extends Controller
      */
     public function edit($id)
     {
-        //
         $editData = Userdata::findOrFail($id);
         return view('userSelfDataEdit', compact('editData'));
     }
@@ -57,7 +56,6 @@ class UserSelfController extends Controller
      */
     public function destroy($id)
     {
-        //
         $deleteData = Userdata::findOrFail($id);
         Userinput::where('userID', $id)->delete();
         $deleteData->delete();

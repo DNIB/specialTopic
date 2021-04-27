@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
 <style>
-  .uper {
-    margin-top: 40px;
-  }
+    .uper {
+        margin-top: 40px;
+    }
 </style>
 <div>
     <form method="post" action="{{ route('Userinput.showSearchItem') }}">
@@ -18,26 +18,26 @@
             <option value="6">其他收入</option>
         </select>
         @can('admin')
-            <input type="number" name="searchUser">
+        <input type="number" name="searchUser">
         @endcan
         <button type="submit">搜尋</button>
     </form>
 </div>
 <div class="uper">
     @if(session()->get('success'))
-        <div class="alert alert-success">
+    <div class="alert alert-success">
         {{ session()->get('success') }}
-        </div><br/>
+    </div><br />
     @endif
     <table class="table table-striped">
         <thead>
             <tr>
                 @can('admin')
-                    <td>id</td>
-                    <td>userID</td>
-                    <td>userName</td>
+                <td>id</td>
+                <td>userID</td>
+                <td>userName</td>
                 @endcan
-                <td>項目</td>
+                <td>支出項目</td>
                 <td>金額</td>
                 <td>備註</td>
                 <td>創建時間</td>
@@ -47,11 +47,56 @@
         </thead>
         <tbody>
             @foreach($userinput as $case)
+            @if($case->itemID<5) <tr>
+                @can('admin')
+                <td>{{ $case->id }}</td>
+                <td>{{ $case->userID }}</td>
+                <td>{{ $case->userSelfData->name }}</td>
+                @endcan
+                <td>{{$case->items->item}}</td>
+                <td>{{$case->money}}</td>
+                <td>{{$case->describe}}</td>
+                <td>{{$case->created_at}}</td>
+                <td>{{$case->updated_at}}</td>
+                <td><a href="{{ route('Userinput.edit', $case->id)}}" class="btn btn-primary">Edit</a></td>
+                <td>
+                    <form action="{{ route('Userinput.destroy', $case->id) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                </td>
+                </tr>
+                @endif
+                @endforeach
+        </tbody>
+    </table>
+    <hr>
+
+    <table class="table table-striped">
+        <thead>
             <tr>
                 @can('admin')
-                    <td>{{ $case->id }}</td>
-                    <td>{{ $case->userID }}</td>
-                    <td>{{ $case->userSelfData->name }}</td>
+                <td>id</td>
+                <td>userID</td>
+                <td>userName</td>
+                @endcan
+                <td>收入項目</td>
+                <td>金額</td>
+                <td>備註</td>
+                <td>創建時間</td>
+                <td>更新時間</td>
+                <td colspan="2">修改資料</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($userinput as $case)
+            @if($case->itemID>4)
+            <tr>
+                @can('admin')
+                <td>{{ $case->id }}</td>
+                <td>{{ $case->userID }}</td>
+                <td>{{ $case->userSelfData->name }}</td>
                 @endcan
                 <td>{{$case->items->item}}</td>
                 <td>{{$case->money}}</td>
@@ -67,9 +112,10 @@
                     </form>
                 </td>
             </tr>
+            @endif
             @endforeach
         </tbody>
     </table>
-<div>
+    <div>
 
-@endsection
+        @endsection

@@ -13,8 +13,6 @@ use App\User;
 
 class UserinputController extends Controller
 {
-
-    
     /**
      * Display a listing of the resource.
      *
@@ -80,7 +78,6 @@ class UserinputController extends Controller
      */
     public function edit($id)
     {
-        //
         $editData = Userinput::findOrFail($id);
 
         if (Gate::allows('admin')) {
@@ -124,7 +121,6 @@ class UserinputController extends Controller
      */
     public function destroy($id)
     {
-        //
         $deleteData = Userinput::findOrFail($id);
         $deleteData->delete();
         

@@ -22,7 +22,11 @@ class HomeControllerTest extends TestCase
 
         $response->assertStatus(200);
     }
-
+    /**
+     * test show admin home view
+     * 
+     * @return view
+     */
     public function testAdminIndex()
     {
         $this->demoAdminLoginIn();
@@ -30,7 +34,11 @@ class HomeControllerTest extends TestCase
         $response = $this->get('/home');
         $response->assertViewIs('home');
     }
-
+    /**
+     * test show user home view
+     * 
+     * @return view
+     */
     public function testUserIndex()
     {
         $this->demoUserLoginIn();

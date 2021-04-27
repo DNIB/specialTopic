@@ -24,7 +24,11 @@ class UserSelfControllerTest extends TestCase
 
         $response->assertStatus(200);
     }
-
+    /**
+     * test get edit user data
+     * 
+     * @return view
+     */
     public function testEdit()
     {   
         $this->demoAdminLoginIn();
@@ -33,7 +37,11 @@ class UserSelfControllerTest extends TestCase
 
         $response->assertViewIs('userSelfDataEdit');
     }
-
+    /**
+     * test update user data
+     * 
+     * @return void
+     */
     public function testUpdate()
     {
         $this->demoAdminLoginIn();
@@ -47,7 +55,11 @@ class UserSelfControllerTest extends TestCase
         $response = $this->put('userself/1', $data);
         $response->assertStatus(302);
     }
-
+    /**
+     * test delete user data
+     * 
+     * @return void
+     */
     public function testDelete()
     {
         $this->demoAdminLoginIn();

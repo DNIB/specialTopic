@@ -5,6 +5,9 @@
         margin-top: 40px;
     }
 </style>
+
+<script src="https://leewannacott.github.io/table-sort-js/table-sort.js"></script>
+
 <div>
     <form method="post" action="{{ route('Userinput.showSearchItem') }}">
         @csrf
@@ -29,20 +32,21 @@
         {{ session()->get('success') }}
     </div><br />
     @endif
-    <table class="table table-striped">
+    {{-- <table class="table table-striped"> --}}
+    <table class="table-sort table table-striped">
         <thead>
             <tr>
                 @can('admin')
-                <td>id</td>
-                <td>userID</td>
-                <td>userName</td>
+                <th>id</th>
+                <th>userID ↕</th>
+                <th>userName</th>
                 @endcan
-                <td>支出項目</td>
-                <td>金額</td>
-                <td>備註</td>
-                <td>創建時間</td>
-                <td>更新時間</td>
-                <td colspan="2">修改資料</td>
+                <th>支出項目</th>
+                <th>金額 ↕</th>
+                <th>備註</th>
+                <th>創建時間 ↕</th>
+                <th>更新時間 ↕</th>
+                <th colspan="2">修改資料</th>
             </tr>
         </thead>
         <tbody>
@@ -73,20 +77,21 @@
     </table>
     <hr>
 
-    <table class="table table-striped">
+    {{-- <table class="table table-striped"> --}}
+    <table class="table-sort table table-striped">
         <thead>
             <tr>
                 @can('admin')
-                <td>id</td>
-                <td>userID</td>
-                <td>userName</td>
+                <th>id</th>
+                <th>userID ↕</th>
+                <th>userName</th>
                 @endcan
-                <td>收入項目</td>
-                <td>金額</td>
-                <td>備註</td>
-                <td>創建時間</td>
-                <td>更新時間</td>
-                <td colspan="2">修改資料</td>
+                <th>收入項目</th>
+                <th>金額 ↕</th>
+                <th>備註</th>
+                <th>創建時間 ↕</th>
+                <th>更新時間 ↕</th>
+                <th colspan="2">修改資料</th>
             </tr>
         </thead>
         <tbody>

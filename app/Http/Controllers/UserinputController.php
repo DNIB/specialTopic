@@ -22,16 +22,14 @@ class UserinputController extends Controller
     {
         if (Gate::allows('admin')) {
             $userinputs = Userinput::all();
-            $items = Item::all();
             
         } else {
             $user = Auth::user();
             $userinputs = $user->userinputs()->get();
-            $items = $user->item;
         }
 
         $ret = $this->divideInput($userinputs);
-        $ret['items'] = $items;
+        $ret['items'] = Auth::user()->item()->get();
 
         return view('index', $ret);
     }
@@ -181,6 +179,8 @@ class UserinputController extends Controller
             $UserID = Auth::user()->id;
             $userinput = Userinput::where('userID', '=', $UserID)->where('itemID', $searchItem)->with('items')->get();
         }
-        return view('index', compact('userinput'));
+        $ret = $this->divideInput($userinput);
+        $ret['items'] = Auth::user()->item()->get();
+        return view('index', $ret);
     }
 }

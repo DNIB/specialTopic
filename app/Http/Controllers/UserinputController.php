@@ -21,16 +21,44 @@ class UserinputController extends Controller
     public function index()
     {
         if (Gate::allows('admin')) {
-            $userinput = Userinput::where('id', '>', 0)->with('items')->with('userSelfData')->get();
-
-            return view('index', compact('userinput'));
-        } else {
-            $UserID = Auth::user()->id;
-            $userinput = Userinput::where('userID', '=', $UserID)->with('items')->get();
+            $userinputs = Userinput::all();
+            $items = Item::all();
             
-            return view('index', compact('userinput'));
+        } else {
+            $user = Auth::user();
+            $userinputs = $user->userinputs()->get();
+            $items = $user->item;
         }
+
+        $ret = $this->divideInput($userinputs);
+        $ret['items'] = $items;
+
+        return view('index', $ret);
     }
+
+    /**
+     * Divide Userinput to Cost and Earn
+     * 
+     * @param Userinput $userinputs
+     * 
+     * @return array
+     */
+    private function divideInput($userinputs)
+    {
+        $ret = [
+            'cost' => [],
+            'earn' => [],
+        ];
+        foreach ($userinputs as $userinput) {
+            if ($userinput->items->ioID == 1) {
+                $ret['cost'][] = $userinput;
+            } else {
+                $ret['earn'][] = $userinput;
+            }
+        }
+        return $ret;
+    }
+    
     /**
      * Show the form for creating a new resource.
      *

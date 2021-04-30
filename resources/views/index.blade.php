@@ -50,8 +50,8 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($userinput as $case)
-            @if($case->itemID<5) <tr>
+            @foreach($cost as $case)
+                <tr>
                 @can('admin')
                 <td>{{ $case->id }}</td>
                 <td>{{ $case->userID }}</td>
@@ -71,7 +71,6 @@
                     </form>
                 </td>
                 </tr>
-                @endif
                 @endforeach
         </tbody>
     </table>
@@ -95,7 +94,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($userinput as $case)
+            @foreach($earn as $case)
             @if($case->itemID>4)
             <tr>
                 @can('admin')

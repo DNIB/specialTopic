@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Item;
+use App\Models\Userinput;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -129,8 +130,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(
             Userinput::class,
+            'userID',
             'id',
-            'userID'
         );
     }
 }

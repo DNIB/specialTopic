@@ -1,10 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<?php $user_id = Auth::user()->id; ?>
 <div class="container">
 
-    @if ($finalmoney < 0) 
+    @if ( $earn['total'] < $cost['total'] ) 
         <script>
             alert('餘額不足！！！');
         </script>
@@ -19,15 +18,19 @@
                     <th>金額</th>
                     <th>總收入</th>
                 </tr>
+
+                <?php $len = count($cost['items']); ?>
+                @foreach ( $earn['items'] as $item_name => $item_value )
                 <tr>
-                    <td>薪水</td>
-                    <td>{{ $salary }}</td>
-                    <td rowspan="2">{{ $allearn }}</td>
+                    <td>{{ $item_name }}</td>
+                    <td>{{ $item_value }}</td>
+                    @if ( $len > 0 )
+                        <td rowspan="{{ $len }}">{{ $earn['total'] }}</td>
+                        <?php $len = 0; ?>
+                    @endif
                 </tr>
-                <tr>
-                    <td>其他收入</td>
-                    <td>{{ $otherearn }}</td>
-                </tr>
+                @endforeach
+                <!--<td rowspan="2">{{ $allearn ?? 0 }}</td>-->
             </table>
             <div style="width: 400px; height: 230px">
                 <canvas id="earnSpend"></canvas>
@@ -45,25 +48,20 @@
                         <th>金額</th>
                         <th>總支出</th>
                     </tr>
+                    
+                    <?php $len = count($cost['items']); ?>
+                    @foreach ( $cost['items'] as $item_name => $item_value )
                     <tr>
-                        <td>餐費</td>
-                        <td>{{ $eat }}</td>
-                        <td rowspan="4">{{ $allspend }}</td>
+                        <td>{{ $item_name }}</td>
+                        <td>{{ $item_value }}</td>
+                        @if ( $len > 0 )
+                        <td rowspan="{{ $len }}">{{ $cost['total'] }}</td>
+                        <?php $len = 0; ?>
+                        @endif
                     </tr>
-                    <tr>
-                        <td>交通</td>
-                        <td>{{ $traffic }}</td>
-                    </tr>
-                    <tr>
-                        <td>娛樂</td>
-                        <td>{{ $play }}</td>
-                    </tr>
-                    <tr>
-                        <td>其他支出</td>
-                        <td>{{ $otherspend }}</td>
-                    </tr>
+                    @endforeach
                 </table>
-                <span style="color:red">餘額 {{ $finalmoney }}</span>
+                <span style="color:red">餘額 {{ $earn['total'] - $cost['total'] }}</span>
             </div>
             <div style="width: 350px; height: 350px">
                 <canvas id="itemsAllSpend"></canvas>
@@ -78,7 +76,7 @@
 let datas = null;
 function init()
 {
-    fetch('/api/charData/{{ $user_id }}?api_token={{ Auth::user()->api_token }}')
+    fetch('/api/charData/{{ $user_id }}?api_token={{ $api_token }}')
     .then(response =>{
         return response.json()//解析成一個json 物件
     console.log(response)

@@ -18,49 +18,52 @@ class DataCalculateController extends Controller
      */
     public function index()
     {
-        $UserID = Auth::user()->id;
-        $userData = Userinput::with('items')->where('userID', $UserID)->get();
+        $user = Auth::user();
 
-        $items = [];
-        $allspend = 0;
-        $allearn = 0;
-        $itemName = [
-            'eat',
-            'traffic',
-            'play',
-            'otherspend',
-            'salary',
-            'otherearn',
+        $cost_items = $user->item()->where('ioID', '1')->get();
+        $earn_items = $user->item()->where('ioID', '2')->get();
+
+        $cost = $this->calcAllInput($cost_items);
+        $earn = $this->calcAllInput($earn_items);
+        
+        $ret = [
+            'cost' => $cost,
+            'earn' => $earn,
+            'api_token' => $user->api_token,
+            'user_id' => $user->id,
         ];
-        for ($i = 0; $i < 6; $i++) {
-            $items[$itemName[$i]] = $userData->where('itemID', $i + 1)->sum('money');
-            if ($i <= 3) {
-                $allspend += $items[$itemName[$i]];
-            } else {
-                $allearn += $items[$itemName[$i]];
-            }
-        }
-        $finalmoney = $allearn - $allspend;
 
-        $salary = $items['salary'];
-        $eat = $items['eat'];
-        $traffic = $items['traffic'];
-        $play = $items['play'];
-        $otherspend = $items['otherspend'];
-        $otherearn = $items['otherearn'];
-
-        return view('dataCalculate', compact(
-            'eat',
-            'traffic',
-            'play',
-            'otherspend',
-            'salary',
-            'otherearn',
-            'allspend',
-            'allearn',
-            'finalmoney',
-        ));
+        return view('dataCalculate', $ret);
     }
+
+    /**
+     * Calculate all the userinput of items
+     * 
+     * @param Item $items
+     * 
+     * @return array
+     */
+    private function calcAllInput($items)
+    {
+        $ret_items = [];
+        $ret_total = 0;
+        foreach ($items as $item) {
+            $datas = $item->userinput()->get();
+            $name = $item->item;
+            $item_total = 0;
+
+            foreach ($datas as $data) {
+                $item_total += $data->money;
+            }
+            $ret_items[$name] = $item_total;
+            $ret_total += $item_total;
+        }
+        return [
+            'items' => $ret_items,
+            'total' => $ret_total,
+        ];
+    }
+
     /**
      * create api data for char
      *

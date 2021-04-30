@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Userdata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
@@ -18,7 +17,7 @@ class UserSelfController extends Controller
      */
     public function edit($id)
     {
-        $editData = Userdata::findOrFail($id);
+        $editData = User::findOrFail($id);
         return view('userSelfDataEdit', compact('editData'));
     }
 
@@ -37,7 +36,7 @@ class UserSelfController extends Controller
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:8',
         ]);
-        Userdata::whereId($id)->update(
+        User::whereId($id)->update(
             [
                 'name' => $request->name,
                 'email' => $request->email,
@@ -56,7 +55,7 @@ class UserSelfController extends Controller
      */
     public function destroy($id)
     {
-        $deleteData = Userdata::findOrFail($id);
+        $deleteData = User::findOrFail($id);
         Userinput::where('userID', $id)->delete();
         $deleteData->delete();
         

@@ -25,13 +25,14 @@
                 @csrf
                 <div class="form-group">
                     <label>支出 :</label>
-                    <p><input type="radio" name="itemID" value="1" required/> 餐費</p>
-                    <p><input type="radio" name="itemID" value="2"/> 交通</p>
-                    <p><input type="radio" name="itemID" value="3"/> 娛樂</p>
-                    <p><input type="radio" name="itemID" value="4"/> 其他支出</p>
+                    @foreach ( $cost_items as $cost_item )
+                        <p><input type="radio" name="itemID" value="{{ $cost_item->id }}" required/> {{ $cost_item->item }}</p>
+                    @endforeach
+
                     <label>收入 :</label>
-                    <p><input type="radio" name="itemID" value="5"/> 薪水</p>
-                    <p><input type="radio" name="itemID" value="6"/> 其他收入</p>
+                    @foreach ( $earn_items as $earn_item )
+                        <p><input type="radio" name="itemID" value="{{ $earn_item->id }}" required/> {{ $earn_item->item }}</p>
+                    @endforeach
                 </div>
 
                 <div class="form-group">

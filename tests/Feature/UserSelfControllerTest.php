@@ -7,7 +7,6 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\User;
-use App\Models\Userdata;
 
 class UserSelfControllerTest extends TestCase
 {   

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
-use App\Models\Userdata;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index()
     {
         if (Gate::allows('admin')) {
-            $userdata = Userdata::where('id', '>', 0)->get();
+            $userdata = User::where('id', '>', 0)->get();
 
             $email = Auth::user()->email;
             $name = Auth::user()->name;

@@ -4,7 +4,6 @@ namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use App\User;
-use App\Userdata;
 
 abstract class TestCase extends BaseTestCase
 {

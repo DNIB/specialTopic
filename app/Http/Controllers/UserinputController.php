@@ -38,7 +38,17 @@ class UserinputController extends Controller
      */
     public function create()
     {   
-        return view('create');
+        $user = Auth::user();
+
+        $cost_items = $user->item()->where('ioID', 1)->get();
+        $earn_items = $user->item()->where('ioID', 2)->get();
+
+        $ret = [
+            'cost_items' => $cost_items,
+            'earn_items' => $earn_items,
+        ];
+
+        return view('create', $ret);
     }
     /**
      * Store a newly created resource in storage.
